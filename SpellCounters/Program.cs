@@ -1,33 +1,34 @@
 using System;
 using SpellCounters.Models;
+using SpellCounters.Game;
 
 namespace SpellCounters
 {
-    public static class Program
+  public static class Program
+  {
+
+
+    public static void Main(string[] args)
     {
 
 
-        public static void Main(string[] args)
-        {
+      var game = new MagicGame();
 
+      var player1 = new Player() { Name = "player 1" };
+      var player2 = new Player() { Name = "player 2" };
 
-            var game = new Game ();
+      player1.Deck = (new SimpleRedDeck()).MakeDeck();
+      //player1.Deck.Shuffle();
 
-            var player1 = new Player () { Name = "player 1" };
-            var player2 = new Player () { Name = "player 2" };
+      player2.Deck = (new SimpleRedDeck()).MakeDeck();
+      //player2.Deck.Shuffle();
 
-            player1.Deck = (new SimpleRedDeck ()).MakeDeck ();
-            player1.Deck.Shuffle ();
+      game.AddPlayer(player1);
+      game.AddPlayer(player2);
 
-            player2.Deck = (new SimpleRedDeck ()).MakeDeck ();
-            player2.Deck.Shuffle ();
+      game.Play();
 
-            game.Players.Add (player1);
-            game.Players.Add (player2);
-
-            game.Play ();
-
-        }
     }
+  }
 }
 

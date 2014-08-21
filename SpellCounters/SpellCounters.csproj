@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -32,18 +32,22 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <Compile Include="Game\AI.cs" />
+    <Compile Include="Game\GamePlayer.cs" />
+    <Compile Include="Game\GameState.cs" />
+    <Compile Include="Game\Move.cs" />
+    <Compile Include="Game\MoveAI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Models\Deck.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Attributes.cs" />
     <Compile Include="Models\DeckMaker.cs" />
-    <Compile Include="Models\Game.cs" />
+    <Compile Include="Game\MagicGame.cs" />
     <Compile Include="Models\Player.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
 </Project>

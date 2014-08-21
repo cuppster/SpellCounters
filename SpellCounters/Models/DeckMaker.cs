@@ -31,13 +31,10 @@ namespace SpellCounters.Models
                 Cost = CardCost.OneRed,
             };
 
-
-
-
-            deck.Cards.AddRange (
+            deck.AddCards (
                 Enumerable.Repeat (redLand, 24));
 
-            deck.Cards.AddRange (
+            deck.AddCards(
                 Enumerable.Repeat (redCreature, 60-24));
              
 
