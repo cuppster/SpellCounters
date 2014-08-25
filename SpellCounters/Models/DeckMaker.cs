@@ -32,10 +32,10 @@ namespace SpellCounters.Models
             };
 
             deck.AddCards (
-                Enumerable.Repeat (redLand, 24));
+                Enumerable.Repeat (redLand, 60));
 
-            deck.AddCards(
-                Enumerable.Repeat (redCreature, 60-24));
+            //deck.AddCards(
+            //    Enumerable.Repeat (redCreature, 60-24));
              
 
             return deck;

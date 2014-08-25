@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SpellCounters.Game
 {
-  static class MoveRules
+  public static class MoveUtil
   {
 
 

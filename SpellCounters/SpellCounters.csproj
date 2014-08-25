@@ -35,8 +35,9 @@
     <Compile Include="Game\AI.cs" />
     <Compile Include="Game\GamePlayer.cs" />
     <Compile Include="Game\GameState.cs" />
+    <Compile Include="Game\GameSteps.cs" />
     <Compile Include="Game\Move.cs" />
-    <Compile Include="Game\MoveAI.cs" />
+    <Compile Include="Game\MoveUtil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Models\Deck.cs" />
     <Compile Include="Models\Card.cs" />

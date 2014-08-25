@@ -15,7 +15,12 @@ namespace SpellCounters.Models
 
   public class BasicLand : Card
   {
-    public virtual bool IsBasicLand { get { return true; } }
+    public override bool IsBasicLand { get { return true; } }
+
+    public override string ToString()
+    {
+      return string.Format("<BasicLand {0}>", Color);
+    }
   }
 
   public class Creature : Card

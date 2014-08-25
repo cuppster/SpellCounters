@@ -7,7 +7,6 @@ namespace SpellCounters.Models
 {
   public class Deck
   {
-
     private List<Card> _cards;
 
     public Deck()
@@ -15,16 +14,17 @@ namespace SpellCounters.Models
       _cards = new List<Card>();
     }
 
-    //public void Shuffle() {
-    //    Cards = Cards.OrderBy(a => Guid.NewGuid());
-    //}
+    public void Shuffle()
+    {
+      _cards = _cards.OrderBy(a => Guid.NewGuid()).ToList();
+    }
 
     public bool HasCard(Card card)
     {
       return _cards.Contains(card);
     }
 
-    public int Count { get { return _cards.Count; } }
+    public int Count { get { return _cards.Count(); } }
 
     public Card[] Cards { get { return _cards.ToArray(); } }
 
@@ -36,6 +36,15 @@ namespace SpellCounters.Models
     public void AddCard(Card card)
     {
       _cards.Add(card);
+    }
+
+    public Card RemoveTopCard()
+    {
+      // get last card
+      var last_index = _cards.Count - 1;
+      var lastCard = _cards[last_index];
+      _cards.RemoveAt(last_index);
+      return lastCard;
     }
 
     public bool RemoveCard(Card card)

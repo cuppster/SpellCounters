@@ -1,63 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
 namespace SpellCounters.Game
 {
-  class AI
+  public class AI
   {
+
+    private GameSteps _gameSteps;
+    private GamePlayer _startPlayer;
+
+    public AI()
+    {
+
+      // start the AI
+      // AI asks GameSteps for a new GameState
+      // GameSteps advances turn counter
+      // GameState has a score, representing the score the player has at the end of their turn, evaulating their position in the game state
+
+
+      _gameSteps = new GameSteps();
+    }
+
     /// <summary>
     /// Implementation of the minimax algorithm.  Determines the best move for the current 
     /// board by playing every move combination until the end of the game.
     /// </summary>
-    public static Move GetBestMove(GameState gb, GamePlayer p, int depth)
+    public GameState GetBestMove(GameState currState, int depth)
     {
+      // who is going first (maximizing)
+      if (null == _startPlayer)
+        _startPlayer = currState.ActivePlayer;
 
-      return null;
+      // terminal condition
+      if (depth == 0)
+        return currState;
+     
 
-      //Move? bestSpace = null;
+      // calulcate possible next moves
 
-      //// calulcate possible moves
+      var nextStates = _gameSteps.NextState(currState);
 
-      //// apply them to create a new game space
+      // apply moves to the current states to get new states
 
+      if (currState.ActivePlayer.Equals(_startPlayer))
+      {
+        // maximizing player
+        Debug.WriteLine("MAXimizing player: {0}", currState.ActivePlayer);
 
-      //List<Space> openSpaces = gb.OpenSquares;
-      //GameBoard newBoard;
+        GameState bestState = null;
+        foreach (var child in nextStates)
+        {
+          var val = GetBestMove(child, depth - 1);
+          if (null == bestState)
+            bestState = val;
 
-      //for (int i = 0; i < openSpaces.Count; i++)
-      //{
-      //  newBoard = gb.Clone();
-      //  Space newSpace = openSpaces[i];
+          if (val.Score > bestState.Score)
+            bestState = val;
+        }
 
-      //  newBoard[newSpace.X, newSpace.Y] = p;
+        return bestState;
+      }
+      else
+      {
+        // minimizing player
+        Debug.WriteLine("MINimizing player: {0}", currState.ActivePlayer);
 
-      //  if (newBoard.Winner == Player.Open && newBoard.OpenSquares.Count > 0)
-      //  {
-      //    Space tempMove = GetBestMove(newBoard, ((Player)(-(int)p)));  //a little hacky, inverts the current player
-      //    newSpace.Rank = tempMove.Rank;
-      //  }
-      //  else
-      //  {
-      //    if (newBoard.Winner == Player.Open)
-      //      newSpace.Rank = 0;
-      //    else if (newBoard.Winner == Player.X)
-      //      newSpace.Rank = -1;
-      //    else if (newBoard.Winner == Player.O)
-      //      newSpace.Rank = 1;
-      //  }
+        GameState bestState = null;
+        foreach (var child in nextStates)
+        {
+          var val = GetBestMove(child, depth - 1);
+          if (null == bestState)
+            bestState = val;
 
-      //  //If the new move is better than our previous move, take it
-      //  if (bestSpace == null ||
-      //     (p == Player.X && newSpace.Rank < ((Space)bestSpace).Rank) ||
-      //     (p == Player.O && newSpace.Rank > ((Space)bestSpace).Rank))
-      //  {
-      //    bestSpace = newSpace;
-      //  }
-      //}
+          if (val.Score < bestState.Score)
+            bestState = val;
+        }
 
-      //return (Space)bestSpace;
+        return bestState;
+      }
     }
   }
 }

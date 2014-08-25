@@ -6,46 +6,47 @@ using SpellCounters.Models;
 
 namespace SpellCounters.Game
 {
-  abstract class Move
+  public abstract class Move
   {
-    public abstract bool CanMove(GameState state, GamePlayer player);
-    public abstract void MakeMove(GameState state, GamePlayer player);
+    public abstract bool CanMove(GameState state);
+    public abstract void MakeMove(GameState state);
   }
 
-  abstract class OneCardMove : Move
+  public abstract class OneCardMove : Move
   {
     protected Card _card;
   }
 
-  class PlayLand : OneCardMove
+  public class PlayLand : OneCardMove
   {
-    public PlayLand(Card card)
-    {
-      _card = card;
-    }
+    public PlayLand() { }
 
-    public override bool CanMove(GameState state, GamePlayer player)
+    public override bool CanMove(GameState state)
     {
-      // if player has card
-      if (!player.HasCardInHand(_card))
+      // is there a basic land in player's hand?
+      var basicLand = state.ActivePlayer.Hand.FirstOrDefault(c => c.IsBasicLand);
+      if (null == basicLand)
         return false;
 
-      // if player has mana
-      player.PlayLandFromHand(_card);
+      // save for later...
+      _card = basicLand;
 
       // OK
       return true;
     }
 
-    public override void MakeMove(GameState state, GamePlayer player)
+    public override void MakeMove(GameState state)
     {
-      if (!CanMove(state, player))
+      if (!CanMove(state))
         throw new Exception("Can't make the move!");
 
-      // remove card from hand and put into play
-      //player.
+      // if player has mana
+      state.ActivePlayer.PlayLandFromHand(_card);
+    }
 
-
+    public override string ToString()
+    {
+      return string.Format("<PlayLand {0}>", _card);
     }
   }
 }
