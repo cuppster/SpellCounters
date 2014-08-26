@@ -36,19 +36,16 @@ namespace SpellCounters.Game
 
       // terminal condition
       if (depth == 0)
-        return currState;
-     
+        return currState;     
 
       // calulcate possible next moves
+      // apply moves to the current states to get new states
 
       var nextStates = _gameSteps.NextState(currState);
-
-      // apply moves to the current states to get new states
 
       if (currState.ActivePlayer.Equals(_startPlayer))
       {
         // maximizing player
-        Debug.WriteLine("MAXimizing player: {0}", currState.ActivePlayer);
 
         GameState bestState = null;
         foreach (var child in nextStates)
@@ -61,12 +58,15 @@ namespace SpellCounters.Game
             bestState = val;
         }
 
+        
+        Debug.WriteLine("MAXimizing player: {0}", currState.ActivePlayer);
+
         return bestState;
       }
       else
       {
         // minimizing player
-        Debug.WriteLine("MINimizing player: {0}", currState.ActivePlayer);
+        
 
         GameState bestState = null;
         foreach (var child in nextStates)
@@ -78,6 +78,8 @@ namespace SpellCounters.Game
           if (val.Score < bestState.Score)
             bestState = val;
         }
+
+        Debug.WriteLine("MINimizing player: {0}", currState.ActivePlayer);
 
         return bestState;
       }

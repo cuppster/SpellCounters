@@ -54,7 +54,7 @@ namespace SpellCounters.Game
     {
       foreach (var p in _players)
       {
-        if (_activePlayer != p)
+        if (!p.Equals(_activePlayer))
         {
           _activePlayer = p;
           return;

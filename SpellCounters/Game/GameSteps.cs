@@ -51,7 +51,6 @@ namespace SpellCounters.Game
       {
 
         case PlySteps.P1_PLAY_LAND :
-          Debug.WriteLine("-- trying: Play Land");
           PlayLand(nextState);
           break;
 
@@ -64,6 +63,8 @@ namespace SpellCounters.Game
 
     private void PlayLand(GameState state)
     {
+      Debug.WriteLine("-- trying PlayLand: {0}", state.ActivePlayer);
+
       // create the move
       var move = new PlayLand();
       if (move.CanMove(state))

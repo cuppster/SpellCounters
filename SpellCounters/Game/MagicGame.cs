@@ -55,7 +55,7 @@ namespace SpellCounters.Game
 
         // description of moves that got to this winning state
         var moves = string.Join("\n", winningState.Moves().Select(m => m.ToString()));
-        Debug.WriteLine(string.Format("Winning Move for {0}: {1}", winningState.ActivePlayer, moves));
+        Debug.WriteLine(string.Format("Winning Move for {0}: {1}", state.ActivePlayer, moves));
 
         // next player
         state = winningState;
